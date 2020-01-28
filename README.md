@@ -37,7 +37,7 @@ errors:
 `baseperm` is a single command-line program. You can install it using `cargo`:
 
 ```bash
-cargo install nvis
+cargo install baseperm
 ```
 
 Or by building it locally:
