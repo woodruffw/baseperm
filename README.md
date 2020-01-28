@@ -1,6 +1,8 @@
 baseperm
 ========
 
+[![Build Status](https://img.shields.io/github/workflow/status/woodruffw/baseperm/CI/master)](https://github.com/woodruffw/baseperm/actions?query=workflow%3ACI)
+
 A small tool for generating valid permutations of strings in base*N* alphabets.
 
 ## Theory of Operation
