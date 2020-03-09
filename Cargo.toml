@@ -13,7 +13,7 @@ homepage = "https://github.com/woodruffw/baseperm"
 
 [dependencies]
 base32 = "0.4.0"
-base64 = "0.11.0"
+base64 = "0.12.0"
 # bs58 = "0.3.0"
 clap = "2.33.0"
 phf = { version = "0.8.0", features = ["macros"] }
