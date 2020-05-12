@@ -15,5 +15,5 @@ homepage = "https://github.com/woodruffw/baseperm"
 base32 = "0.4.0"
 base64 = "0.12.1"
 # bs58 = "0.3.0"
-clap = "2.33.0"
+clap = "2.33.1"
 phf = { version = "0.8.0", features = ["macros"] }
