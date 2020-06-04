@@ -7,6 +7,9 @@ description = "A tool for generating valid permutations of encoded inputs"
 license-file = "LICENSE"
 homepage = "https://github.com/woodruffw/baseperm"
 
+[package.metadata.release]
+no-dev-version = true
+
 [badges]
 # https://github.com/rust-lang/crates.io/pull/1838
 # github-actions = { repository = "woodruffw/baseperm", workflow = "CI" }
