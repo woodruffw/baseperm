@@ -7,13 +7,13 @@ use std::process;
 
 mod baseperm;
 
-static DECODE_MAP: phf::Map<&'static str, &'static (baseperm::DecodeContext + Sync)> = phf_map! {
+static DECODE_MAP: phf::Map<&'static str, &'static (dyn baseperm::DecodeContext + Sync)> = phf_map! {
     "base64" => &(baseperm::Base64 {}),
     "base64-urlsafe" => &(baseperm::Base64Urlsafe {}),
     "base32" => &(baseperm::Base32 {}),
 };
 
-fn permute(input: &str, ctx: &baseperm::DecodeContext) -> Result<Vec<String>, Error> {
+fn permute(input: &str, ctx: &dyn baseperm::DecodeContext) -> Result<Vec<String>, Error> {
     let decoded = match ctx.decode(input) {
         Some(result) => result,
         None => {
