@@ -19,4 +19,4 @@ base32 = "0.4.0"
 base64 = "0.13.0"
 # bs58 = "0.3.0"
 clap = "2.33.3"
-phf = { version = "0.9.1", features = ["macros"] }
+phf = { version = "0.10.0", features = ["macros"] }
