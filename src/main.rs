@@ -1,9 +1,9 @@
-use clap::{App, Arg};
-use phf::phf_map;
-
 use std::convert::TryInto;
 use std::io::{Error, ErrorKind, Read};
 use std::process;
+
+use clap::{Arg, Command};
+use phf::phf_map;
 
 mod baseperm;
 
@@ -65,15 +65,15 @@ fn permute(input: &str, ctx: &dyn baseperm::DecodeContext) -> Result<Vec<String>
 }
 
 fn run() -> Result<(), Error> {
-    let matches = App::new(env!("CARGO_PKG_NAME"))
+    let matches = Command::new(env!("CARGO_PKG_NAME"))
         .version(env!("CARGO_PKG_VERSION"))
         .about(env!("CARGO_PKG_DESCRIPTION"))
         .arg(
-            Arg::with_name("encoding")
+            Arg::new("encoding")
                 .help("sets the encoding")
-                .short("e")
+                .short('e')
                 .long("encoding")
-                .multiple(false)
+                .multiple_values(true)
                 .possible_values(&DECODE_MAP.keys().cloned().collect::<Vec<&str>>())
                 .default_value("base64"),
         )
