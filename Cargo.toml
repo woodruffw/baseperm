@@ -16,7 +16,7 @@ no-dev-version = true
 
 [dependencies]
 base32 = "0.4.0"
-base64 = "0.13.1"
+base64 = "0.20.0"
 # bs58 = "0.3.0"
 clap = "3.2.22"
 phf = { version = "0.11.1", features = ["macros"] }
