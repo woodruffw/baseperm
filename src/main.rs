@@ -2,6 +2,7 @@ use std::convert::TryInto;
 use std::io::{Error, ErrorKind, Read};
 use std::process;
 
+use clap::builder::PossibleValuesParser;
 use clap::{Arg, Command};
 use phf::phf_map;
 
@@ -73,13 +74,13 @@ fn run() -> Result<(), Error> {
                 .help("sets the encoding")
                 .short('e')
                 .long("encoding")
-                .multiple_values(true)
-                .possible_values(&DECODE_MAP.keys().cloned().collect::<Vec<&str>>())
+                .num_args(1..)
+                .value_parser(PossibleValuesParser::new(DECODE_MAP.keys().copied()))
                 .default_value("base64"),
         )
         .get_matches();
 
-    let encoding = matches.value_of("encoding").unwrap();
+    let encoding = matches.get_one::<String>("encoding").unwrap();
 
     let mut input = String::new();
     std::io::stdin().read_to_string(&mut input)?;
@@ -93,7 +94,7 @@ fn run() -> Result<(), Error> {
         return Ok(());
     }
 
-    let results = permute(&input, DECODE_MAP.get(encoding).cloned().unwrap())?;
+    let results = permute(&input, DECODE_MAP.get(encoding.as_str()).cloned().unwrap())?;
 
     for result in results.iter() {
         println!("{}", result);
@@ -115,13 +116,17 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use base64::{
+        engine::general_purpose::{STANDARD, URL_SAFE},
+        Engine as _,
+    };
 
     #[test]
     fn test_permute_base64() {
         // 8 bytes (4 pad), 16 (2 pad), 24 (0 pad)
         let strings = vec![("f", 4), ("fo", 2), ("foo", 0)];
         for (string, pad) in strings.iter() {
-            let input = base64::encode(string);
+            let input = STANDARD.encode(string);
             let results = permute(&input, &baseperm::Base64 {}).unwrap();
 
             assert_eq!(results.len(), 2_usize.pow(*pad));
@@ -133,8 +138,8 @@ mod tests {
         // 8 bytes (4 pad), 16 (2 pad), 24 (0 pad)
         let strings = vec![("f", 4), ("fo", 2), ("foo", 0)];
         for (string, pad) in strings.iter() {
-            let input = base64::encode(string);
-            let results = permute(&input, &baseperm::Base64 {}).unwrap();
+            let input = URL_SAFE.encode(string);
+            let results = permute(&input, &baseperm::Base64Urlsafe {}).unwrap();
 
             assert_eq!(results.len(), 2_usize.pow(*pad));
         }
