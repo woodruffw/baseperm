@@ -115,13 +115,17 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use base64::{
+        engine::general_purpose::{STANDARD, URL_SAFE},
+        Engine as _,
+    };
 
     #[test]
     fn test_permute_base64() {
         // 8 bytes (4 pad), 16 (2 pad), 24 (0 pad)
         let strings = vec![("f", 4), ("fo", 2), ("foo", 0)];
         for (string, pad) in strings.iter() {
-            let input = base64::encode(string);
+            let input = STANDARD.encode(string);
             let results = permute(&input, &baseperm::Base64 {}).unwrap();
 
             assert_eq!(results.len(), 2_usize.pow(*pad));
@@ -133,8 +137,8 @@ mod tests {
         // 8 bytes (4 pad), 16 (2 pad), 24 (0 pad)
         let strings = vec![("f", 4), ("fo", 2), ("foo", 0)];
         for (string, pad) in strings.iter() {
-            let input = base64::encode(string);
-            let results = permute(&input, &baseperm::Base64 {}).unwrap();
+            let input = URL_SAFE.encode(string);
+            let results = permute(&input, &baseperm::Base64Urlsafe {}).unwrap();
 
             assert_eq!(results.len(), 2_usize.pow(*pad));
         }

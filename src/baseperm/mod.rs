@@ -1,5 +1,8 @@
 use base32;
-use base64;
+use base64::{
+    engine::general_purpose::{STANDARD, URL_SAFE},
+    Engine as _,
+};
 
 // NOTE(ww): It'd be really nice if the base* modules used here exposed
 // their alphabets, but it's not a big deal: they won't be changing anytime
@@ -27,7 +30,7 @@ impl DecodeContext for Base64 {
     }
 
     fn decode(&self, input: &str) -> Option<Vec<u8>> {
-        match base64::decode(input) {
+        match STANDARD.decode(input) {
             Ok(result) => Some(result),
             Err(_) => None,
         }
@@ -49,7 +52,7 @@ impl DecodeContext for Base64Urlsafe {
     }
 
     fn decode(&self, input: &str) -> Option<Vec<u8>> {
-        match base64::decode_config(input, base64::URL_SAFE) {
+        match URL_SAFE.decode(input) {
             Ok(result) => Some(result),
             Err(_) => None,
         }
