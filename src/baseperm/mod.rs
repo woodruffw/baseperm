@@ -71,6 +71,6 @@ impl DecodeContext for Base32 {
     }
 
     fn decode(&self, input: &str) -> Option<Vec<u8>> {
-        base32::decode(base32::Alphabet::RFC4648 { padding: true }, input)
+        base32::decode(base32::Alphabet::Rfc4648 { padding: true }, input)
     }
 }
