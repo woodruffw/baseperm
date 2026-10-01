@@ -151,7 +151,7 @@ mod tests {
         let strings = vec![("f", 2), ("fo", 4), ("foo", 1), ("fooo", 3), ("foooo", 0)];
         for (string, pad) in strings.iter() {
             let input = base32::encode(
-                base32::Alphabet::RFC4648 { padding: true },
+                base32::Alphabet::Rfc4648 { padding: true },
                 string.as_bytes(),
             );
             let results = permute(&input, &baseperm::Base32 {}).unwrap();
