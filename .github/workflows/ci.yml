@@ -10,13 +10,13 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
       - name: Lint
         run: cargo fmt && git diff --exit-code
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
     - name: Build
       run: cargo build
     - name: Test
